@@ -6,7 +6,6 @@ const cors = require('cors')
 
 dotenv.config()
 
-
 // Connecting to the MongoDB Client
 const url = process.env.MONGO_URI;
 const client = new MongoClient(url);
@@ -15,12 +14,12 @@ client.connect();
 // App & Database
 const dbName = process.env.DB_NAME 
 const app = express()
-const port = 3000 
+// REQUIRED FOR RENDER: Dynamically assign the port
+const port = process.env.PORT || 3000 
 
 // Middleware
 app.use(bodyparser.json())
 app.use(cors())
-
 
 // Get all the passwords
 app.get('/', async (req, res) => {
@@ -48,7 +47,6 @@ app.delete('/', async (req, res) => {
     res.send({success: true, result: findResult})
 })
 
-
 app.listen(port, () => {
-    console.log(`Example app listening on  http://localhost:${port}`)
+    console.log(`Example app listening on port ${port}`)
 })
