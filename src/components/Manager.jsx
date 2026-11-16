@@ -11,7 +11,7 @@ const Manager = () => {
     const [passwordArray, setPasswordArray] = useState([])
 
     const getPasswords = async () => {
-        let req = await fetch("http://localhost:3000/")
+        let req = await fetch("https://passop-backend-n1bd.onrender.com/")
         let passwords = await req.json()
         setPasswordArray(passwords)
     }
@@ -43,7 +43,7 @@ const Manager = () => {
 
             // Fix 1: Only send a DELETE request if we are editing an existing password (form.id exists)
             if (form.id) {
-                await fetch("http://localhost:3000/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
+                await fetch("https://passop-backend-n1bd.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: form.id }) })
             }
 
             // Fix 2: Generate the ID once so the screen and database match perfectly
@@ -51,7 +51,7 @@ const Manager = () => {
             const newPassword = { ...form, id: currentId };
 
             setPasswordArray([...passwordArray, newPassword])
-            await fetch("http://localhost:3000/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newPassword) })
+            await fetch("https://passop-backend-n1bd.onrender.com/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newPassword) })
 
             // Clear the form
             setform({ site: "", username: "", password: "" })
@@ -72,7 +72,7 @@ const Manager = () => {
         if (c) {
             setPasswordArray(passwordArray.filter(item => item.id !== id))
 
-            await fetch("http://localhost:3000/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
+            await fetch("https://passop-backend-n1bd.onrender.com/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
 
             toast('Password Deleted!', {
                 position: "top-right",
